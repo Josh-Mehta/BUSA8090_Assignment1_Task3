@@ -1,0 +1,32 @@
+#Question 2 a(iii)
+mysql -u awkologi -p
+Enter Password:
+mysql> use compbiol;
+mysql> select m.Lastname, m.Firstname, m.MemberID from Member m 
+-> where m.Coach is null;
+
+#Question 2 b(iii)
+mysql -u awkologi -p
+Enter Password:
+mysql> use compbiol;
+mysql> select m.Lastname, m.Firstname, m.MemberID from Member m
+-> where Year(m.JoinDate)=2013;
+
+#Question 2 c(iii)
+Mysql -u awkology -p
+Enter Password:
+mysql> use compbiol;
+mysql> select m.Lastname, m.Firstname, m.MemberID 
+-> from Member m inner join Entry e 
+-> on m.MemberID = e.MemberID
+-> where e.Year!=2013;
+
+#Question 2 d(iii)
+Mysql -u awkologi -p
+Enter Password:
+mysql> use compbiol;
+mysql> select m.Lastname, m.Firstname, m.MemberID from member m
+-> where not exists (select e1.Year from Entry e1
+-> where not exists (select * from entry e2
+-> where e2.MemberID=m.MemberID and e1.Year=e2.Year));
+
