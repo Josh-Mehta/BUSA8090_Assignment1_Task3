@@ -1,0 +1,27 @@
+#Question 1 (a)
+curl https://www.staff.hs-mittweida.de/~wuenschi/data/media/ compbiolbook/expression.tab > expression.tab
+echo -e “gene\t expr_value” > exp.tab   
+cat expression.tab >> exp.tab  
+head -n -1 exp.tab   
+
+#Question 1 (b)
+curl https://www.staff.hs-mittweida.de/~wuenschi/data/media/compbiolbook/annotation.tab > annotation.tab 
+echo -e “gene\t function_1\t metabolism” > an.tab  
+cat annotation.tab >> an.tab  
+head -n -1 an.tab  
+
+#Question 1 (c)
+head -n -1 exp.tab >> exp1.tab  
+head -n -1 an.tab >> an1.tab  
+tail -n +2 exp1.tab | sort -k 1 >> 1.tab 
+tail -n +2 an1.tab | sort -k 1 >> 2.tab 
+join 1.tab 2.tab 
+
+Question 1 (d) (ii)
+vi annotation.tab
+mysql import –local -d –ignore-lines=0 -u awkologi -p compbiol annotation.tab 
+Enter password:
+Mysql> Select distinct a1.metabolism
+-> From annotation a1 inner join annotation a2
+-> On a1.metabolism=a2.metabolism
+-> Where a1.gene <> a2.gene ;
